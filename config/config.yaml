@@ -1,0 +1,85 @@
+# Configuration file for MITSUI&CO. Commodity Prediction Challenge
+
+# Data paths
+data:
+  raw_data_path: "data/raw/"
+  processed_data_path: "data/processed/"
+  features_path: "data/features/"
+  models_path: "models/"
+  submissions_path: "submissions/"
+
+# Feature engineering parameters
+features:
+  # Technical indicators
+  technical_indicators:
+    - "sma"
+    - "ema"
+    - "rsi"
+    - "macd"
+    - "bollinger_bands"
+    - "stochastic"
+    - "williams_r"
+    - "cci"
+    - "adx"
+  
+  # Time windows for rolling features
+  rolling_windows: [5, 10, 20, 50, 100]
+  
+  # Lag features
+  lag_features: [1, 2, 3, 5, 10, 20]
+  
+  # Price difference features
+  price_diff_windows: [1, 2, 3, 5, 10]
+
+# Model parameters
+models:
+  # XGBoost parameters
+  xgboost:
+    n_estimators: 1000
+    max_depth: 6
+    learning_rate: 0.01
+    subsample: 0.8
+    colsample_bytree: 0.8
+    random_state: 42
+    
+  # LightGBM parameters
+  lightgbm:
+    n_estimators: 1000
+    max_depth: 6
+    learning_rate: 0.01
+    subsample: 0.8
+    colsample_bytree: 0.8
+    random_state: 42
+    
+  # CatBoost parameters
+  catboost:
+    iterations: 1000
+    depth: 6
+    learning_rate: 0.01
+    random_state: 42
+    
+  # Neural Network parameters
+  neural_network:
+    hidden_layers: [128, 64, 32]
+    dropout_rate: 0.2
+    learning_rate: 0.001
+    batch_size: 32
+    epochs: 100
+
+# Training parameters
+training:
+  test_size: 0.2
+  validation_size: 0.2
+  random_state: 42
+  cv_folds: 5
+  
+# Evaluation parameters
+evaluation:
+  # Competition metric parameters
+  sharpe_ratio:
+    risk_free_rate: 0.0
+    
+# Submission parameters
+submission:
+  prediction_column: "prediction"
+  id_column: "id" 
