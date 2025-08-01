@@ -52,6 +52,40 @@ try:
     print(f"\n Train data columns: {len(train_data.columns)}")
     print(f" Test data columns: {len(test_data.columns)}")
     
+    # Check for target variable in train_labels.csv
+    try:
+        train_labels = pd.read_csv('/kaggle/input/mitsui-commodity-prediction-challenge/train_labels.csv')
+        print(f"✅ Train labels loaded: {train_labels.shape}")
+        print(f"   Labels columns: {train_labels.columns.tolist()}")
+        print(f"   Labels head:")
+        print(train_labels.head())
+    except:
+        print("⚠️  Train labels not found, will create dummy target")
+    
+    # Create sample_submission
+    sample_submission = pd.DataFrame({
+        'id': [f"{i}_{j}" for i in range(len(test_data)) for j in range(424)],
+        'prediction': 0.0
+    })
+    
+    print(f"📋 Sample submission created: {sample_submission.shape}")
+    
+    print("🔍 Checking data content...")
+    
+    # Check training data
+    print("Train data info:")
+    print(train_data.info())
+    print("\nTrain data head:")
+    print(train_data.head())
+    
+    print("\n" + "="*50 + "\n")
+    
+    # Check test data
+    print("Test data info:")
+    print(test_data.info())
+    print("\nTest data head:")
+    print(test_data.head())
+    
 except FileNotFoundError as e:
     print(f"❌ Error loading data: {e}")
     print("Please ensure the competition data is properly attached to the notebook.")
@@ -63,9 +97,8 @@ except FileNotFoundError as e:
 
 print(" Preparing features...")
 
-# Load train labels
-train_labels = pd.read_csv('/kaggle/input/mitsui-commodity-prediction-challenge/train_labels.csv')
-print("✅ Using actual train labels")
+# Use train_labels loaded in Cell 2
+print("✅ Using train labels loaded in Cell 2")
 print(f"   Labels shape: {train_labels.shape}")
 
 # Merge train data with labels
@@ -161,6 +194,22 @@ print(f"   Shape: {submission.shape}")
 print(f"   Sample predictions:")
 print(submission.head(10))
 print("🎉 Ready for submission!")
+
+# Verify submission file
+print("\n🔍 Verifying submission file...")
+file_path = '/kaggle/working/submission.parquet'
+if os.path.exists(file_path):
+    file_size = os.path.getsize(file_path)
+    print(f"✅ Submission file exists: {file_size} bytes")
+    
+    # Load and check content
+    submission_check = pd.read_parquet(file_path)
+    print(f"📊 Submission shape: {submission_check.shape}")
+    print(f"📋 Columns: {submission_check.columns.tolist()}")
+    print(f"📈 First 5 rows:")
+    print(submission_check.head())
+else:
+    print("❌ Submission file not found")
 
 # ============================================================================
 # CELL 6: Final Summary
