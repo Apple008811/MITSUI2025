@@ -211,29 +211,16 @@ if os.path.exists(file_path):
 else:
     print("❌ Submission file not found")
 
-# ============================================================================
-# CELL 6: Final Summary
-# ============================================================================
-
-print("=" * 50)
+# Final completion message
+print("\n" + "=" * 50)
 print("🎉 PIPELINE COMPLETED SUCCESSFULLY! 🎉")
-print("=" * 50)
-print(f"📁 Submission file: /kaggle/working/submission.parquet")
-print(f"📊 Number of predictions: {len(predictions)}")
 print("=" * 50)
 print("🚀 You can now submit this file to the competition!")
 print("=" * 50)
-
-# Verify file exists
-output_path = '/kaggle/working/submission.parquet'
-if os.path.exists(output_path):
-    file_size = os.path.getsize(output_path)
-    print(f"✅ File verification: {output_path} exists ({file_size} bytes)")
-else:
-    print(f"❌ File verification failed: {output_path} not found")
 
 print("\n📋 IMPORTANT REMINDERS:")
 print("1. This notebook runs WITHOUT internet access")
 print("2. All libraries are pre-installed in Kaggle environment")
 print("3. Output file is in .parquet format as required")
-print("4. Ready for submission!") 
+print("4. Ready for submission!")
+ 
